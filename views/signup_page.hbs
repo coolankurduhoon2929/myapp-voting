@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv='cache-control' content='no-cache'>
+    <meta http-equiv='expires' content='0'>
+    <meta http-equiv='pragma' content='no-cache'>
+    <title>SignUp</title>
+    <script>
+    window.addEventListener( "pageshow", function ( event ) {
+    var historyTraversal = event.persisted || ( typeof window.performance != "undefined" && window.performance.navigation.type === 2 );
+    if ( historyTraversal ) {
+      // Handle page restore.
+      window.location.reload(true);
+    }
+    });
+    </script>
+    <style type="text/css">
+      body{
+        background: url(https://gadgetflowcdn.com/wp-content/themes/thegadgetflow4/images/categories/random_large/all_things_wood.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+      h1{
+        color: #2b2b2b;
+        background-color: #ff3300;
+        border-color: black;
+        border-width: medium;
+        border-style: solid;
+        margin:0 auto;
+        width: 40%;
+        text-align: center;
+
+      }
+      form{
+        align-self: center;
+        width: 400px;
+        margin:0 auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      label{
+        color: 	#F0FFFF;
+      }
+      legend{
+        color: #00ff6a;
+      }
+      #for_space{
+        height: 120px;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div style="height:20px;"></div>
+    <h1>ONLINE VOTING</h1>
+    <div id="for_space"></div>
+    <form action="/onsignupdata" method="post">
+      <fieldset>
+        <legend>Signup</legend>
+        <p style="color:red">{{errorMessage}}</p>
+        <br>
+        <label for="input1">Username:</label>
+        <input type="text" id="input1" name="usernameProvided" required>
+        <br>
+        <br>
+        <lable for="input2">Password:</label>
+        <input type="text" id="input2" name="passwordProvided" required>
+        <br>
+        <br>
+        <label for="input3">Gender:</label>
+        <input type="radio" id="input3" name="genderProvided" value="male" checked>Male
+        <input type="radio" id="input3" name="genderProvided" value="female">Female
+        <input type="radio" id="input3" name="genderProvided" value="other">Other
+        <br>
+        <br>
+        <label for="input4" required>Age:</label>
+        <input type="text" id="input4" name="ageProvided" >
+      <br>
+      <br>
+      <div style="display: flex;justify-content: center;align-items: center"><input type="Submit" value="Sign Up" style="color:#FF6347;"></div>
+      <br>
+    </fieldset>
+    </form>
+  </body>
+</html>

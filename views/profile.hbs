@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv='cache-control' content='no-cache'>
+  <meta http-equiv='expires' content='0'>
+  <meta http-equiv='pragma' content='no-cache'>
+  <title>{{username}}</title>
+<script>
+window.addEventListener( "pageshow", function ( event ) {
+var historyTraversal = event.persisted || ( typeof window.performance != "undefined" && window.performance.navigation.type === 2 );
+if ( historyTraversal ) {
+  // Handle page restore.
+  window.location.reload(true);
+}
+});
+</script>
+<style>
+.card {
+  box-shadow: 0 4px 8px 10px rgba(0, 0, 0, 0.9);
+  max-width: 300px;
+  margin: auto;
+  text-align: center;
+  font-family: arial;
+}
+
+.title {
+  color: grey;
+  font-size: 18px;
+}
+
+button {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 8px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
+}
+
+a {
+  text-decoration: none;
+  font-size: 22px;
+  color: white;
+}
+
+button:hover, a:hover {
+  opacity: 0.7;
+}
+</style>
+</head>
+<body>
+
+<h2 style="text-align:center">User Profile Card</h2>
+
+<div class="card">
+  <img src="https://redcarpetpharmacy.com/wp-content/uploads/2016/06/member_icon.jpg" alt="User" style="width:100%">
+  <h1>{{username}}</h1>
+  <p class="title">{{gender}}</p>
+  <p>Age={{age}}</p>
+ <div style="margin:40px 0px 0"><form action="/logout" method="get"><button>LogOut</button></form></div>
+</div>
+
+</body>
+</html>
