@@ -30,6 +30,12 @@ var User=mongoose.model('User',{
     token:{
       type:String
     }
+  }],
+  questions:[{
+    question:{type:String},
+    qid:{type:String},
+    option_selected:{type:String},
+    pollDate:{type:Date}
   }]
 });
 

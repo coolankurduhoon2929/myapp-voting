@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
+    <script
+  src="http://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+
+    <title>Home|<%=username%></title>
+    <script>
+    window.addEventListener( "pageshow", function ( event ) {
+    var historyTraversal = event.persisted || ( typeof window.performance != "undefined" && window.performance.navigation.type === 2 );
+    if ( historyTraversal ) {
+      // Handle page restore.
+      window.location.reload(true);
+    }
+    });
+    </script>
+
+
+    <style>
+      body{
+        background: #D3D3D3;
+        color:purple;
+        background: #070000;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #070000, #4C0001, #070000);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #070000, #4C0001, #070000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+      }
+      #details{
+        font-size: 30px;
+        text-align: center;
+        letter-spacing: 0.6rem;
+        padding-top: 30px;
+      }
+      #logoutlink:hover{
+        color:red;
+      }
+      .row{
+        margin-top: 90px;
+      }
+      .container{
+        width: 90%;
+      }
+      .img-rounded{
+        width: 200px;
+      }
+      #main-container{
+        padding-top: 80px;
+      }
+      .panel-default{
+        margin-bottom: 20px;
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+
+          <a class="navbar-brand" href="#">
+            <i class="fas fa-hand-peace" style="color:#F61C40;"></i> Online Voting
+          </a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#">Home</a></li>
+          <li ><a href="/profile">Profile</a></li>
+          <li ><a href="/pollresults">Poll Results</a></li>
+          <li ><a href="/userpastactivity">Past Activity</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Settings</i></a></li>
+          <li><a href="/logout" id="logoutlink">LogOut</i></a></li>
+        </ul>
+      </div>
+      </div>
+
+    </nav>
+
+    <div id="main-container">
+  <%  for(var i=questions.length-1;i>=0;i--){ %>
+        <div class="panel panel-default" id=<%=questions[i]._id%>>
+          <div class="panel-body" ><%= questions[i].question %></div>
+          <div class="panel-footer">
+            <% for(var j=0;j<questions[i].options.length;j++){ %>
+              <input type="radio" name="optionSelected"> <%= questions[i].options[j].option %></input><br>
+            <% } %>
+            <button type="button" class="btn btn-success" style="margin-top:10px;">Vote</button>
+        </div>
+        </div>
+      <%  } %>
+
+      <% if(questions.length===0){ %>
+        <p style='text-align:center;color:green;font-size:30px;padding-top:200px'>Congratulations...You have voted all polls...Check Result Section...</p>
+        <% } %>
+  </div>
+</div>
+
+  <script type="text/javascript" src="/userhome.js"></script>
+  </body>
+</html>

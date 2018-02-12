@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
+     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+     <script
+  src="http://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+    <title>Home|<%=username%></title>
+    <script>
+    window.addEventListener( "pageshow", function ( event ) {
+    var historyTraversal = event.persisted || ( typeof window.performance != "undefined" && window.performance.navigation.type === 2 );
+    if ( historyTraversal ) {
+      // Handle page restore.
+      window.location.reload(true);
+    }
+    });
+    </script>
+
+    <style>
+
+
+      body{
+        background: #D3D3D3;
+        color:purple;
+      }
+      #details{
+        font-size: 30px;
+        text-align: center;
+        letter-spacing: 0.6rem;
+        padding-top: 30px;
+      }
+      #logoutlink:hover{
+        color:red;
+      }
+      .row{
+        margin-top: 90px;
+      }
+      .img-rounded{
+        width: 200px;
+      }
+      #main-container{
+        float: right;
+
+      }
+      .navigation{
+        position: fixed;
+
+      }
+      @media only screen and (max-width: 768px) {
+        .navigation {
+          position: relative;
+        }
+
+      }
+
+    button, input, select, textarea{
+        color:red;
+        font-size:20px;
+      }
+    </style>
+
+  </head>
+  <body>
+    <div class="container-fluid">
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+
+          <a class="navbar-brand" href="#">
+            <i class="fas fa-hand-peace" style="color:#F61C40;"></i> Online Voting
+          </a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li ><a href="/me">Home</a></li>
+          <li ><a href="/profile">Profile</a></li>
+          <li class="active"><a href="#">Poll Results</a></li>
+          <li ><a href="/userpastactivity">Past Activity</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Settings</i></a></li>
+          <li><a href="/logout" id="logoutlink">LogOut</i></a></li>
+        </ul>
+      </div>
+      </div>
+
+    </nav>
+    <div class="row">
+      <div class="col-xs-12 col-sm-2 sidebar-sticky navigation">
+        <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
+      </button>
+    </div>
+      <div class="collapse navbar-collapse"  id="bs-example-navbar-collapse-2">
+        <ul class="nav nav-pills nav-stacked" >
+          <li role="presentation" class="active"><a href="#">All</a></li>
+          <li role="presentation"><a href="#">Education</a></li>
+          <li role="presentation"><a href="#">Entertainment</a></li>
+          <li role="presentation"><a href="#">Policy</a></li>
+          <li role="presentation"><a href="#">Politics</a></li>
+          <li role="presentation"><a href="#">Sports</a></li>
+          <li role="presentation"><a href="#">Other</a></li>
+        </ul>
+      </div>
+      </div>
+      <div id="main-container"  class="col-xs-12 col-sm-10 main">
+      </div>
+
+</div>
+    <script type="text/javascript" src="/pollresults.js"></script>
+  </div>
+  </body>
+</html>
