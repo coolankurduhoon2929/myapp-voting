@@ -9,6 +9,7 @@ var cookieParser=require('cookie-parser');
 const {mongoose}=require('./db/mongoose');
 const {User}=require('./models/Users');
 const {Question}=require('./models/questions');
+const port=process.env.PORT || 3000;
 
 var app=express();
 app.set('view engine','ejs');
@@ -288,6 +289,6 @@ app.post('/submitquestion',(req,res)=>{
 });
 
 
-app.listen(3000,()=>{
-  console.log('Server up on port 3000');
+app.listen(port,()=>{
+  console.log(`Server up on port ${port}`);
 });
