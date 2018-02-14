@@ -8,16 +8,37 @@ var User=mongoose.model('User',{
     required:true,
     unique:true
   },
+  firstname:{
+    type:String,
+    trim:true
+  },
+  lastname:{
+    type:String,
+    trim:true
+  },
+  city:{
+    type:String
+  },
+  occupation:{
+    type:String
+  },
   password:{
     type:String,
     required:true,
     minlength:5
+  },
+  imgsrc:{
+    type:String
   },
   age:{
     type:Number,
     min:0,
     max:120,
     required:true
+  },
+  about:{
+    type:String,
+    trim:true
   },
   gender:{
     type:String,

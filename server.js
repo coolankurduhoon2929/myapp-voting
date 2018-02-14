@@ -167,7 +167,7 @@ app.get('/me',authenticate,(req,res)=>{
 });
 //userprofile
 app.get('/profile',authenticate,(req,res)=>{
-  res.render('userprofile',{username:req.user.username,age:req.user.age,gender:req.user.gender});
+  res.render('userprofile',{user:req.user});
 });
 
 //After signup request
@@ -322,24 +322,52 @@ app.post('/submitquestion',(req,res)=>{
   })
 });
 
-//upload image page...
-app.get('/uploadimage',(req,res)=>{
-  res.render('uploadingimage');
+//settings pages
+app.get('/setting',authenticate,(req,res)=>{
+  res.render('settings',{user:req.user});
 });
 
-//upload post image
-app.post('/upload',(req,res)=>{
-  upload(req,res,(err)=>{
-    if(err){
-      console.log(err);
-      res.render('uploadingimage',{message:err});
-    }
-    else{
-      console.log(req.file);
-      res.send('test');
-    }
+app.post('/onsettingchange',authenticate,(req,res)=>{
+  User.findByIdAndUpdate(req.user._id, {$set:{
+    firstname:req.body.firstname,
+    lastname:req.body.lastname,
+    password:req.body.password,
+    age:req.body.age,
+    occupation:req.body.occupation,
+    city:req.body.city,
+    about:req.body.about,
+    imgsrc:req.body.imgsrc
+  }}).then((doc)=>{
+    res.redirect('/profile');
+  }).catch((err)=>{
+    console.log(err);
+    res.redirect('/setting');
   });
 });
+
+
+
+
+//upload image page...
+// app.get('/uploadimage',(req,res)=>{
+//   res.render('uploadingimage');
+// });
+
+//upload post image
+// app.post('/upload',(req,res)=>{
+//   upload(req,res,(err)=>{
+//     if(err){
+//       console.log(err);
+//       res.render('uploadingimage',{message:err});
+//     }
+//     else{
+//       console.log(req.file);
+//       res.send('test');
+//     }
+//   });
+// });
+
+
 
 
 app.listen(port,()=>{

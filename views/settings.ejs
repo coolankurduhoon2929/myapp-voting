@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <title>Settings</title>
+    <script>
+    window.addEventListener( "pageshow", function ( event ) {
+    var historyTraversal = event.persisted || ( typeof window.performance != "undefined" && window.performance.navigation.type === 2 );
+    if ( historyTraversal ) {
+      // Handle page restore.
+      window.location.reload(true);
+    }
+    });
+    </script>
+
+    <style>
+      body{
+        background: #D3D3D3;
+        color:#FF5733;
+      }
+      #logoutlink:hover{
+        color:red;
+      }
+      .img-rounded{
+        width: 200px;
+      }
+      #main-container{
+        padding-top: 80px;
+      }
+      #topheading{
+        color:#3498DB;
+        text-align: center;
+        text-transform: capitalize;
+        text-decoration: underline;
+        margin-bottom: 30px;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div class="container">
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+
+          <a class="navbar-brand" href="#">
+            <i class="fas fa-hand-peace" style="color:#F61C40;"></i> Online Voting
+          </a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li ><a href="/me">Home</a></li>
+          <li ><a href="/profile">Profile</a></li>
+          <li ><a href="/pollresults">Poll Results</a></li>
+          <li ><a href="/userpastactivity">Past Activity</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="active"><a href="#">Settings</i></a></li>
+          <li><a href="/logout" id="logoutlink">LogOut</i></a></li>
+        </ul>
+      </div>
+      </div>
+
+    </nav>
+
+    <div id="main-container">
+      <h3 id="topheading">update details</h3>
+  <div class="row">
+    <form class="col s12" action="/onsettingchange" method="post">
+      <div class="row">
+        <div class="input-field col s6">
+          <input placeholder="Placeholder" name="firstname" value=<%= user.firstname %> id="first_name" type="text" class="validate" required>
+          <label for="first_name">First Name</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="last_name" type="text" name="lastname" value=<%= user.lastname %> class="validate" required>
+          <label for="last_name">Last Name</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input disabled value=<%= user.username %> name="username" id="disabled" type="text" class="validate" required>
+          <label for="disabled">Username</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="password" value=<%= user.password %> name="password" type="text" class="validate" required>
+          <label for="password">Password</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="email" value=<%= user.age %> name="age" type="number" class="validate" required>
+          <label for="email">Age</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input disabled value=<%= user.gender %> name="gender" id="disabled2" type="text" class="validate" required>
+          <label for="disabled2">Gender</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="occ1" type="text"  value=<%= user.occupation %> name="occupation"  class="validate" required>
+          <label for="occ1">Occupation</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="city12" type="text" value=<%= user.city %> name="city"  class="validate" required>
+          <label for="city12">City</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="imagesc" type="text" value=<%= user.imgsrc %> name="imgsrc"  class="validate" required>
+          <label for="imagesc">Image Source(Copy the url of any image on internet and past that here...)</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <textarea id="textarea1"  class="materialize-textarea" name="about" required><%= user.about %></textarea>
+          <label for="textarea1">About</label>
+        </div>
+        <script>
+        $('#textarea1').trigger('autoresize');
+          </script>
+      </div>
+      <div class="row">
+        <div class="col s12" style="text-align:center">
+          <button class="btn waves-effect waves-light" type="submit" name="action">Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+
+    </div>
+
+  </div>
+  <script
+  src="http://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+  </body>
+</html>

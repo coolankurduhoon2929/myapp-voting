@@ -8,7 +8,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
-    <title>Home|<%=username%></title>
+    <title>Home|<%=user.username%></title>
     <script>
     window.addEventListener( "pageshow", function ( event ) {
     var historyTraversal = event.persisted || ( typeof window.performance != "undefined" && window.performance.navigation.type === 2 );
@@ -22,7 +22,7 @@
     <style>
       body{
         background: #D3D3D3;
-        color:purple;
+        color:#FF5733;
       }
       #details{
         font-size: 30px;
@@ -68,7 +68,7 @@
           <li ><a href="/userpastactivity">Past Activity</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Settings</i></a></li>
+            <li><a href="/setting">Settings</i></a></li>
           <li><a href="/logout" id="logoutlink">LogOut</i></a></li>
         </ul>
       </div>
@@ -78,31 +78,42 @@
     <div class="row">
       <div class="col-sm-3 col-xs-12">
         <div class="img-thumbnail" style="margin-bottom:10px;">
-          <img src="https://i2.cdn.turner.com/cnnnext/dam/assets/140926165711-john-sutter-profile-image-large-169.jpg"  style="width:100%;height:300px">
+          <img src=<%= user.imgsrc %>  style="width:100%;height:300px" alt="profile pic">
         </div>
 
-        <div class="panel panel-primary">
+        <div class="panel panel-warning">
           <div class="panel-heading">About</div>
-          <div class="panel-body"><p>ewrgerg tgerhrehyher therhejryej terhter thryh ewrgs</p></div>
+          <div class="panel-body"><p><%= user.about %></p></div>
         </div>
       </div>
       <div class="col-sm-9 col-xs-12">
-        <div class="panel panel-info">
+        <div class="panel panel-warning">
           <div class="panel-heading">Name</div>
-          <div class="panel-body"><%=username%></div>
+          <div class="panel-body"><%=user.firstname%> <%= user.lastname %></div>
         </div>
-        <div class="panel panel-info">
+        <div class="panel panel-warning">
           <div class="panel-heading">Username</div>
-          <div class="panel-body"><%=username%></div>
+          <div class="panel-body"><%=user.username%></div>
         </div>
-        <div class="panel panel-info">
+        <div class="panel panel-warning">
           <div class="panel-heading">Gender</div>
-          <div class="panel-body"><%=gender%></div>
+          <div class="panel-body"><%=user.gender%></div>
         </div>
-        <div class="panel panel-info">
+        <div class="panel panel-warning">
           <div class="panel-heading">Age</div>
-          <div class="panel-body"><%=age%></div>
+          <div class="panel-body"><%=user.age%></div>
         </div>
+
+        <div class="panel panel-warning">
+          <div class="panel-heading">Occupation</div>
+          <div class="panel-body"><%=user.occupation%></div>
+        </div>
+        <div class="panel panel-warning">
+          <div class="panel-heading">City</div>
+          <div class="panel-body"><%=user.city%></div>
+        </div>
+
+
       </div>
     </div>
   </div>
