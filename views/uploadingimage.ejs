@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <!-- Compiled and minified CSS -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+
+
+    <title>Home</title>
+    <script>
+    window.addEventListener( "pageshow", function ( event ) {
+    var historyTraversal = event.persisted || ( typeof window.performance != "undefined" && window.performance.navigation.type === 2 );
+    if ( historyTraversal ) {
+      // Handle page restore.
+      window.location.reload(true);
+    }
+    });
+    </script>
+    <style>
+
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>File Upload</h1>
+      <%= typeof message!='undefined'? message:'' %>
+      <form action="/upload" method="post" enctype="multipart/form-data">
+
+        <label for="11">Username</label>
+        <input id="11" type="text" name="username" required placeholder="username"><br>
+
+
+        <div class="file-field input-field">
+          <div class="btn grey">
+            <span>File</span>
+            <input type="file" name="image" accept=".png, .jpg, .jpeg" required>
+          </div>
+          <div class="file-path-wrapper">
+            <input class="file-path validate" type="text">
+          </div>
+        </div>
+
+        <button class="btn waves-effect waves-light" type="submit" name="action">Submit</button>
+      </form>
+  <div class="preview">
+    <p>No files currently selected for upload</p>
+  </div>
+  </div>
+  <script>
+    var input=document.querySelectorAll('input')[1];
+    var preview=document.querySelector('.preview');
+    //preview.style.opacity=0;
+    input.addEventListener('change',updateImageDisplay);
+    function updateImageDisplay(){
+      while(preview.firstChild){
+        preview.removeChild(preview.firstChild);
+      }
+
+    var curFiles=input.files;
+    if(curFiles.length===0){
+      var para=document.createElement('p');
+      para.textContent='No files currently selected for upload';
+      preview.appendChild(para);
+    }
+    else{
+      var list=document.createElement('ol');
+      preview.appendChild(list);
+      for(var i=0;i<curFiles.length;i++){
+        var listItem=document.createElement('li');
+        var para=document.createElement('p');
+        if(validFileType(curFiles[i])){
+          para.textContent='File name:'+curFiles[i].name+" file size:"+returnFileSize(curFiles[i].size);
+          var image=document.createElement('img');
+          image.src=window.URL.createObjectURL(curFiles[i]);
+          image.setAttribute('class','responsive-img');
+          listItem.appendChild(image);
+          listItem.appendChild(para);
+        }
+        else{
+          para.textContent='File name ' + curFiles[i].name + ': Not a valid file type. Update your selection.';
+          listItem.appendChild(para);
+        }
+        list.appendChild(listItem);
+      }
+    }
+  };
+
+//custom functions...
+  var fileTypes = [
+  'image/jpeg',
+  'image/pjpeg',
+  'image/png'
+]
+
+  function validFileType(file) {
+    for(var i = 0; i < fileTypes.length; i++) {
+    if(file.type === fileTypes[i]) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+function returnFileSize(number) {
+  if(number < 1024) {
+    return number + 'bytes';
+  } else if(number > 1024 && number < 1048576) {
+    return (number/1024).toFixed(1) + 'KB';
+  } else if(number > 1048576) {
+    return (number/1048576).toFixed(1) + 'MB';
+  }
+}
+
+
+
+  </script>
+  <script
+  src="//code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
+  </body>
+</html>

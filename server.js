@@ -1,6 +1,8 @@
 const express=require('express');
 const ejs=require('ejs');
 const bodyParser=require('body-parser');
+const multer=require('multer');
+const path=require('path');
 var urlencodedParser=bodyParser.urlencoded({extended:true});
 const jwt=require('jsonwebtoken');
 const _=require('lodash');
@@ -16,6 +18,38 @@ app.set('view engine','ejs');
 app.use(express.static('public'));
 app.use(urlencodedParser);
 app.use(cookieParser());
+
+//set storage engine with multer
+const storage=multer.diskStorage({
+  destination:'./public/uploads/',
+  filename:function(req,file,cb){
+    cb(null,file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+  }
+});
+
+//init upload
+var upload=multer({
+  storage:storage,
+  limits:{fileSize:1000000},
+  fileFilter:function(req,file,cb){
+    checkFileType(file,cb);
+  }
+}).single('image');
+
+//Function check file type
+function checkFileType(file,cb){
+  //Allowed extensions
+  const fileTypes=/jpeg|jpg|png/;
+  //check ext
+  const extname=fileTypes.test(path.extname(file.originalname).toLowerCase());
+  //check mime
+  const mimeType=fileTypes.test(file.mimetype);
+  if(mimeType && extname){
+    return cb(null,true);
+  }  else{
+    cb('Error:Images Only');
+  }
+}
 
 //custom middleware
 var authenticate=(req,res,next)=>{
@@ -286,6 +320,25 @@ app.post('/submitquestion',(req,res)=>{
     res.redirect('back');
     console.log('Some Error');
   })
+});
+
+//upload image page...
+app.get('/uploadimage',(req,res)=>{
+  res.render('uploadingimage');
+});
+
+//upload post image
+app.post('/upload',(req,res)=>{
+  upload(req,res,(err)=>{
+    if(err){
+      console.log(err);
+      res.render('uploadingimage',{message:err});
+    }
+    else{
+      console.log(req.file);
+      res.send('test');
+    }
+  });
 });
 
 
