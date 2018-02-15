@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+  <script>
+    window.addEventListener( "pageshow", function ( event ) {
+    var historyTraversal = event.persisted || ( typeof window.performance != "undefined" && window.performance.navigation.type === 2 );
+    if ( historyTraversal ) {
+      // Handle page restore.
+      window.location.reload(true);
+    }
+    });
+  </script>
+  <style>
+    body{
+      color:white;
+      background: #000000;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #434343, #000000);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #434343, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    }
+    .container{
+      width: 500px;
+      margin-top: 15%;
+    }
+    @media only screen and (max-width: 768px) {
+      .container {
+        width:300px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="row">
+    <form class="col s12" action="/onadminlogin" method="post">
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="usernmae" type="text" name="username" class="validate" required autofocus>
+          <label for="username">Admin Username</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="password" type="password" name="password" class="validate" required>
+          <label for="password">Password</label>
+        </div>
+      </div>
+      <div class="row" style="text-align:center;">
+        <div class="input-field col s12">
+          <button class="btn waves-effect waves-light" type="submit" name="action">Submit</button>
+      </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
+
+
+
+
+  <script
+  src="http://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+</body>
+</html>
