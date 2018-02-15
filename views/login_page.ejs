@@ -84,13 +84,26 @@ background: linear-gradient(to right, #FFC371, #FF5F6D); /* W3C, IE 10+/ Edge, F
       <i class="fab fa-studiovinari" style="font-size:50px"></i>
       <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
       <label for="inputEmail" class="sr-only">Email address</label>
-      <input type="text" id="inputEmail" class="form-control" placeholder="Username" name="usernameProvided" required autofocus>
+      <input type="text" id="inputEmail" class="form-control" placeholder="Username" name="usernameProvided" style="margin-bottom:10px;" required autofocus>
+
       <label for="inputPassword" class="sr-only">Password</label>
-      <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="passwordProvided" required>
+      <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="passwordProvided" style="margin-bottom:10px;" required>
+      <p id="error1" style="color: #ff4f33;"><%= error1 %></p>
+      <p id="error2" style="color: #ff4f33;"><%= error2 %></p>
       <button class="btn btn-lg btn-primary btn-block" type="submit" style="margin-top:20px;">Sign in</button>
       <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
     </form>
   </div>
+  <script>
+    $('#inputEmail').on('change',()=>{
+      $('#error1').html('');
+      $('#error2').html('');
+    });
+    $('#inputPassword').on('change',()=>{
+      $('#error1').html('');
+      $('#error2').html('');
+    });
+  </script>
 
 </body>
 </html>

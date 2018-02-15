@@ -134,7 +134,11 @@ app.get('/signin',deauthenticate,(req,res)=>{
   res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
   res.setHeader("Pragma", "no-cache");
   res.setHeader("Expires", "0");
-  res.render('login_page')
+  var error={error1:"",error2:""};
+  if(req.cookies.signinerror){
+      error=JSON.parse(req.cookies.signinerror);
+  }
+  res.render('login_page',error);
 });
 
 //Signup page
@@ -149,7 +153,7 @@ app.get('/signup',deauthenticate,(req,res)=>{
 app.post('/me',(req,res)=>{
   User.findOne({username:req.body.usernameProvided}).then((doc)=>{
     if(!doc){
-      return Promise.reject('No doc found');
+      return Promise.reject('No such username exists');
     }
     if(doc.password===req.body.passwordProvided){
         var token=jwt.sign(_.pick(doc,['username','password']),'i am don');
@@ -167,17 +171,24 @@ app.post('/me',(req,res)=>{
         res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
         res.setHeader("Pragma", "no-cache");
         res.setHeader("Expires", "0");
-        res.cookie('authx',token,{maxAge:6000000}).redirect('/me');
+        res.cookie('authx',token,{maxAge:6000000}).clearCookie('signinerror').redirect('/me');
     }
     else{
-      return Promise.reject('Password Unmatched');
+      return Promise.reject('Incorrect password');
     }
   }).catch((err)=>{
-    console.log(err);
     res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
     res.setHeader("Pragma", "no-cache");
     res.setHeader("Expires", "0");
-    res.redirect('back');
+    var error1='';
+    var error2='';
+    if(err==="Incorrect password"){
+      error2=err;
+    }else{
+      error1=err;
+    }
+    var error={error1:error1,error2:error2};
+    res.cookie('signinerror',JSON.stringify(error),{maxAge:2000}).redirect('back');
   });
 });
 
