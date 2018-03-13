@@ -318,7 +318,7 @@ app.get('/pollresults',authenticate,(req,res)=>{
 });
 
 //sending full poll information
-app.get('/getpolldata',authenticate,(req,res)=>{
+app.get('/getpolldata',authenticate,adminAuthenticate,(req,res)=>{
   Question.find({}).then((doc)=>{
     res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
     res.setHeader("Pragma", "no-cache");
@@ -539,6 +539,17 @@ function adminDeauthenticate(req,res,next){
     next();
   });
 };
+
+
+//get poll results for admin...
+app.get('/adminpollresult',adminAuthenticate,(req,res)=>{
+  Question.find({}).then((doc)=>{
+    res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+    res.setHeader("Pragma", "no-cache");
+    res.setHeader("Expires", "0");
+    res.render('adminpollresult',{doc:doc});
+  });
+});
 
 //Logout request Admin
 app.get('/adminlogout',adminAuthenticate,(req,res)=>{

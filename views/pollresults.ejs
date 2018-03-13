@@ -49,7 +49,14 @@
       }
       #main-container{
         float: right;
-
+      }
+      #ajax-loader{
+        margin: 200px auto;
+        text-align: center;
+        display: block;
+      }
+      #side-navigation{
+        border-right: 2px #337ab7 solid;
       }
       .navigation{
         position: fixed;
@@ -59,7 +66,12 @@
         .navigation {
           position: relative;
         }
-
+        #ajax-loader{
+          margin: 100px auto;
+        }
+        #side-navigation{
+          border-right:0px;
+        }
       }
 
     button, input, select, textarea{
@@ -100,8 +112,8 @@
       </div>
 
     </nav>
-    <div class="row">
-      <div class="col-xs-12 col-sm-2 sidebar-sticky navigation">
+    <div class="row" >
+      <div class="col-xs-12 col-sm-2 sidebar-sticky navigation" id="side-navigation">
         <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2" aria-expanded="false">
         <span class="sr-only">Toggle navigation</span>
@@ -124,6 +136,7 @@
       </div>
       </div>
       <div id="main-container"  class="col-xs-12 col-sm-10 main">
+        <img src="/photos/ajax-loader.gif" id="ajax-loader"></img>
       </div>
 
 </div>

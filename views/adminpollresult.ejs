@@ -10,6 +10,15 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <!-- Our Custom CSS -->
         <link rel="stylesheet" href="/style4.css">
+        <script
+  src="//code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
+  <link rel="shortcut icon" href="/photos/download1.png">
+   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+
         <script>
           window.addEventListener( "pageshow", function ( event ) {
           var historyTraversal = event.persisted || ( typeof window.performance != "undefined" && window.performance.navigation.type === 2 );
@@ -31,7 +40,15 @@
           background-position:initial;
           background-position-x:50%;
           background-position-y: 20%;
-          }
+      }
+      #ajax-loader{
+            margin: 200px auto;
+            text-align: center;
+            display: block;
+        }
+      #main-container{
+        margin: 10px;
+      }
      </style>
     </head>
     <body>
@@ -46,7 +63,7 @@
                 </div>
 
                 <ul class="list-unstyled components">
-                    <a href="#">
+                    <a href="/myadmin">
                             <i class="glyphicon glyphicon-home"></i>
                             Home
                         </a>
@@ -60,7 +77,7 @@
                         </a>
                             <ul class="collapse list-unstyled" id="homeSubmenu">
                             <li><a href="#">Poll History</a></li>
-                            <li><a href="/adminpollresult">Poll Results</a></li>
+                            <li><a href="#">Poll Results</a></li>
                             <li><a href="/myadminform1">New Poll Ques</a></li>
                         </ul>
 
@@ -118,12 +135,12 @@
             </div>
 
 
-        <div class="container">
-          <p> Welcome Admin </p>
-        </div>
+          <div id="main-container" class="row">
+            <img src="/photos/ajax-loader.gif" id="ajax-loader"></img>
+          </div>
 
 
-
+</div>
 
 
         <!-- jQuery CDN -->
