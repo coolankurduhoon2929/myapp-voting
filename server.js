@@ -318,7 +318,7 @@ app.get('/pollresults',authenticate,(req,res)=>{
 });
 
 //sending full poll information
-app.get('/getpolldata',authenticate,adminAuthenticate,(req,res)=>{
+app.get('/getpolldata',authenticate,(req,res)=>{
   Question.find({}).then((doc)=>{
     res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
     res.setHeader("Pragma", "no-cache");
