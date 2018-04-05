@@ -7,6 +7,7 @@ var urlencodedParser=bodyParser.urlencoded({extended:true});
 const jwt=require('jsonwebtoken');
 const _=require('lodash');
 var cookieParser=require('cookie-parser');
+const dns=require('dns');
 
 const {mongoose}=require('./db/mongoose');
 const {User}=require('./models/Users');
@@ -219,10 +220,20 @@ app.get('/profile',authenticate,(req,res)=>{
 //After signup request
 app.post('/onsignupdata',(req,res)=>{
   var user=new User({
+    firstname:req.body.firstnameProvided,
+    lastname:req.body.lastnameProvided,
     username:req.body.usernameProvided,
     password:req.body.passwordProvided,
     age:req.body.ageProvided,
-    gender:req.body.genderProvided
+    gender:req.body.genderProvided,
+    city:"NotProvided",
+    occupation:"NotProvided",
+    imgsrc:"NotProvided",
+    about:"NotProvided",
+    questions:[],
+    followers:[],
+    Following:[],
+    dateJoined:new Date()
   });
   user.save().then((doc)=>{
     res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
@@ -319,6 +330,14 @@ app.get('/pollresults',authenticate,(req,res)=>{
 
 //sending full poll information
 app.get('/getpolldata',authenticate,(req,res)=>{
+  Question.find({}).then((doc)=>{
+    res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+    res.setHeader("Pragma", "no-cache");
+    res.setHeader("Expires", "0");
+    res.send(doc);
+  });
+});
+app.get('/getpolldata1',adminAuthenticate,(req,res)=>{
   Question.find({}).then((doc)=>{
     res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
     res.setHeader("Pragma", "no-cache");
@@ -566,6 +585,102 @@ app.get('/adminlogout',adminAuthenticate,(req,res)=>{
   });
 });
 
+app.get('/explore',authenticate,(req,res)=>{
+  doc=req.user;
+  User.find({_id:{$in:req.user.followers}}).select('_id username firstname lastname imgsrc').then((doc2)=>{
+    doc.followers=doc2;
+    //console.log('following',doc.following);
+    User.find({_id:{$in:req.user.following}}).select('_id username firstname lastname imgsrc').then((doc3)=>{
+      doc.following=doc3;
+      //console.log(d3);
+      //console.log(doc.followers);
+      res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+      res.setHeader("Pragma", "no-cache");
+      res.setHeader("Expires", "0");
+      res.render('explore',{username:req.user.username,user:doc});
+    });
+  }).catch((err)=>{
+    console.log(err);
+    res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+    res.setHeader("Pragma", "no-cache");
+    res.setHeader("Expires", "0");
+    res.status(400).send('Some error is there...');
+  });
+});
+
+//Searching people
+app.get('/searchPeople',authenticate,(req,res)=>{
+  var value=req.query.value;
+  value=value.trim().toLowerCase();
+  User.find({},'username firstname lastname imgsrc').then((data)=>{
+    var ans=[];
+    data.forEach((d)=>{
+      var a1=d.firstname.toLowerCase().trim();
+      var a2=d.lastname.toLowerCase().trim();
+      if(value===a1){
+        ans.push(d);
+      }
+      else if(value===a2){
+        ans.push(d);
+      }
+      else if(value===(a1+" "+a2)){
+        ans.push(d);
+      }
+      else{
+        var i1=0;
+        var i2=0;
+        var i=0;
+        while(i1<value.length && i2<a1.length){
+          if(value[i1]===a1[i2]){
+            i=i+1;
+          }
+          i1=i1+1;
+          i2=i2+1;
+        }
+        if(i/(value.length)>=.6){
+          ans.push(d);
+        }
+      }
+    });
+    res.send(ans);
+  });
+});
+
+//see anyone's profile...
+app.get('/viewprofile/:user_id',authenticate,(req,res)=>{
+  //console.log(req.params)
+  User.findOne({_id:req.params.user_id}).then((doc)=>{
+    res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+    res.setHeader("Pragma", "no-cache");
+    res.setHeader("Expires", "0");
+    dns.resolve4(doc.imgsrc,(err,addresses)=>{
+      if(err.code==="ENOTFOUND"){
+        doc.imgsrc="https://cdn.pixabay.com/photo/2016/08/31/11/54/user-1633249_960_720.png";
+      };
+      User.find({_id:{$in:doc.followers}}).select('_id username firstname lastname imgsrc').then((doc2)=>{
+        doc.followers=doc2;
+        //console.log('following',doc.following);
+        User.find({_id:{$in:doc.following}}).select('_id username firstname lastname imgsrc').then((doc3)=>{
+          doc.following=doc3;
+          //console.log(d3);
+          //console.log(doc.followers);
+          res.render('viewprofile',{user:doc});
+        });
+      }).catch((err)=>{
+        res.status(400).send('Some error is there...');
+      });
+    });
+  }).catch((err)=>{
+    res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+    res.setHeader("Pragma", "no-cache");
+    res.setHeader("Expires", "0");
+    res.status(400).send('No such user found');
+  });
+});
+
+app.all('*', function(req, res) {
+    res.status(400).send('This page does not exist');
+})
 
 app.listen(port,()=>{
   console.log(`Server up on port ${port}`);

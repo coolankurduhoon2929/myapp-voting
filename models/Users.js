@@ -57,7 +57,10 @@ var User=mongoose.model('User',{
     qid:{type:String},
     option_selected:{type:String},
     pollDate:{type:Date}
-  }]
+  }],
+  followers:[],
+  following:[],
+  dateJoined:{type:Date}
 });
 
 module.exports={User};

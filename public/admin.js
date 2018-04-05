@@ -2,7 +2,7 @@ google.charts.load('current', {packages: ['corechart', 'bar']});
 google.charts.setOnLoadCallback(function(){
 
   //making ajax request to get poll data
-  $.get('/getpolldata',(data1,status)=>{
+  $.get('/getpolldata1',(data1,status)=>{
     data1.sort(function(a,b){
       return (b.total_votes-a.total_votes);
     });

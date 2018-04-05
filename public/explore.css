@@ -1,0 +1,7 @@
+#search-result{
+  list-style-type:none;
+}
+
+#search-result li{
+  color:red;
+}
