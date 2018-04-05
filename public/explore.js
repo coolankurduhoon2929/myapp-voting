@@ -16,20 +16,31 @@ function searchfun(){
       users.forEach(function(data){
         var template=$('#result-template').html();
         var img1=data.imgsrc;
-        console.log(img1);
+        //console.log(img1);
         if(data.imgsrc===undefined || data.imgsrc===null || data.imgsrc==="NotProvided"){
           img1="https://www.iconexperience.com/_img/o_collection_png/green_dark_grey/512x512/plain/user.png";
         }
         var html=Mustache.render(template,{
           username:data.firstname.trim()+" "+data.lastname.trim(),
           imgsrc:img1,
-          username1:data.username
+          username1:data.username,
+          _id:data._id
         });
         $('#search-result').append(html);
       });
+
+      $('.list-group-item').on('click',function(){
+        window.location.href = "/viewprofile/"+$(this).attr("id").trim();
+      });
+
     });
   }
 }
 
 $('#search-button').on('click',searchfun);
 $('#search-input').on('keyup',searchfun);
+
+$('.list-group-item').on('click',function(){
+  window.location.href = "/viewprofile/"+$(this).attr("id").trim();
+  //$.get('/viewprofile/'+$(this).attr("id"));
+});

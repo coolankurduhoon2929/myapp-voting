@@ -2,6 +2,6 @@
   list-style-type:none;
 }
 
-#search-result li{
+#search-result span{
   color:red;
 }
