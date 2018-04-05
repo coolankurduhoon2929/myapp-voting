@@ -219,6 +219,13 @@ app.get('/profile',authenticate,(req,res)=>{
 
 //After signup request
 app.post('/onsignupdata',(req,res)=>{
+  var imsz;
+  if(req.body.genderProvided==="Female"){
+      imsz="https://cdn.pixabay.com/photo/2014/03/25/16/54/user-297566_960_720.png";
+  }
+  else{
+    imsz="http://www.clker.com/cliparts/c/4/0/e/1197115544208915882acspike_male_user_icon.svg.med.png";
+  }
   var user=new User({
     firstname:req.body.firstnameProvided,
     lastname:req.body.lastnameProvided,
@@ -228,7 +235,7 @@ app.post('/onsignupdata',(req,res)=>{
     gender:req.body.genderProvided,
     city:"NotProvided",
     occupation:"NotProvided",
-    imgsrc:"NotProvided",
+    imgsrc:imsz,
     about:"NotProvided",
     questions:[],
     followers:[],
@@ -356,6 +363,19 @@ app.get('/setting',authenticate,(req,res)=>{
 });
 
 app.post('/onsettingchange',authenticate,(req,res)=>{
+  //checking availability of imgsrc...
+  dns.resolve4(req.body.imgsrc,(err,addresses)=>{
+    if(err.code==="ENOTFOUND"){
+      var imsz;
+      if(req.body.gender==="Female"){
+          imsz="https://cdn.pixabay.com/photo/2014/03/25/16/54/user-297566_960_720.png";
+      }
+      else{
+        imsz="http://www.clker.com/cliparts/c/4/0/e/1197115544208915882acspike_male_user_icon.svg.med.png";
+      }
+      req.body.imgsrc=imsz;
+    };
+
   User.findByIdAndUpdate(req.user._id, {$set:{
     firstname:req.body.firstname,
     lastname:req.body.lastname,
@@ -377,6 +397,7 @@ app.post('/onsettingchange',authenticate,(req,res)=>{
     res.setHeader("Expires", "0");
     res.redirect('/setting');
   });
+});
 });
 
 
@@ -650,13 +671,15 @@ app.get('/searchPeople',authenticate,(req,res)=>{
 app.get('/viewprofile/:user_id',authenticate,(req,res)=>{
   //console.log(req.params)
   User.findOne({_id:req.params.user_id}).then((doc)=>{
-    res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-    res.setHeader("Pragma", "no-cache");
-    res.setHeader("Expires", "0");
-    dns.resolve4(doc.imgsrc,(err,addresses)=>{
-      if(err.code==="ENOTFOUND"){
-        doc.imgsrc="https://cdn.pixabay.com/photo/2016/08/31/11/54/user-1633249_960_720.png";
-      };
+    if(doc.imgsrc===undefined){doc.imgsrc="kuch bhi";}
+    dns.resolve4(doc.imgsrc,(err,addresses,family)=>{
+      dns.resolve6(doc.imgsrc,(err1,addresses,family)=>{
+        if(err.code==="ENOTFOUND" && err1.code==="ENOTFOUND"){
+          doc.imgsrc="https://cdn.pixabay.com/photo/2016/08/31/11/54/user-1633249_960_720.png";
+        };
+
+      //console.log(err);
+      //console.log(doc.imgsrc);
       User.find({_id:{$in:doc.followers}}).select('_id username firstname lastname imgsrc').then((doc2)=>{
         doc.followers=doc2;
         //console.log('following',doc.following);
@@ -664,17 +687,50 @@ app.get('/viewprofile/:user_id',authenticate,(req,res)=>{
           doc.following=doc3;
           //console.log(d3);
           //console.log(doc.followers);
+          doc.checkfollow="Follow";
+          for(var i=0;i<req.user.following.length;i++){
+            console.log('done');
+            if(req.params.user_id.trim()===req.user.following[i].toString()){
+              doc.checkfollow="Following";
+            }
+          }
+          res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+          res.setHeader("Pragma", "no-cache");
+          res.setHeader("Expires", "0");
           res.render('viewprofile',{user:doc});
         });
       }).catch((err)=>{
+        res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+        res.setHeader("Pragma", "no-cache");
+        res.setHeader("Expires", "0");
         res.status(400).send('Some error is there...');
       });
     });
+  });
   }).catch((err)=>{
+    console.log(err);
     res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
     res.setHeader("Pragma", "no-cache");
     res.setHeader("Expires", "0");
     res.status(400).send('No such user found');
+  });
+});
+
+//update following list...
+app.post('/updatefollowinglist',authenticate,(req,res)=>{
+  //console.log(req.body.usernameToFollow);
+  User.findOne({username:req.body.usernameToFollow}).then((data)=>{
+    User.findOne({_id:req.user._id}).then((doc)=>{
+      var obj=doc;
+      obj.following.push(data._id);
+      User.findOneAndUpdate({_id:req.user._id},obj).then((doc)=>{
+        var obj2=data;
+        obj2.followers.push(req.user._id);
+        User.findOneAndUpdate({_id:data._id},obj2).then((doc)=>{res.send('Done');});
+      });
+    });
+  }).catch((err)=>{
+    console.log(err);
   });
 });
 

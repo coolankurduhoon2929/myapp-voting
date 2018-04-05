@@ -35,3 +35,11 @@ window.onclick = function(event) {
         modal2.style.display = "none";
     }
 }
+
+$('#followbtn').on('click',function(){
+  if($('#12za').text()==="Follow"){
+    $.post('/updatefollowinglist',{usernameToFollow:$('#username1').text().trim()},function(data,status){
+      $('#12za').text("Following");
+    });
+  }
+});

@@ -6,7 +6,17 @@
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<link rel="shortcut icon" href="/photos/download1.png">
 <title>Profile |<%=user.username%></title>
+<script>
+window.addEventListener( "pageshow", function ( event ) {
+var historyTraversal = event.persisted || ( typeof window.performance != "undefined" && window.performance.navigation.type === 2 );
+if ( historyTraversal ) {
+  // Handle page restore.
+  window.location.reload(true);
+}
+});
+</script>
 <style>
 
 /* ==========================================================================
@@ -141,7 +151,7 @@ body
         <img align="left" class="fb-image-lg" src="https://png.pngtree.com/thumb_back/fw800/back_pic/03/51/76/7457922892b55cf.jpg" alt="Profile image example"/>
         <img align="left" id="profile_pic" class="fb-image-profile thumbnail" src=<%= user.imgsrc %> alt="Profile image example"/>
         <div class="fb-profile-text">
-            <h1 style="color:#ff4500;"><%= user.firstname+" "+user.lastname %> <span style="float:right"><button type="button" class="btn btn-primary">Follow</button></span></h1>
+            <h1 style="color:#ff4500;"><%= user.firstname+" "+user.lastname %> <span style="float:right"><button type="button" id="followbtn" class="btn btn-primary"><span id="12za"><%= user.checkfollow %></span></button></span></h1>
 
               <p style="color:#cd853f;">
                   About : <%= user.about %>
@@ -169,7 +179,7 @@ body
     </div>
     <div class="col-lg-9">
         <ul class="list-group">
-          <li class="list-group-item" style="color:#dc143c;margin-bottom:10px">Username : <%= user.username %></li>
+          <li class="list-group-item" style="color:#dc143c;margin-bottom:10px">Username : <span id="username1"><%= user.username %></span></li>
           <li class="list-group-item" style="color:#dc143c;margin-bottom:10px">Gender : <%= user.gender %></li>
           <li class="list-group-item" style="color:#dc143c;margin-bottom:10px">Age : <%= user.age %></li>
           <li class="list-group-item" style="color:#dc143c;margin-bottom:10px">occupation : <%= user.occupation %></li>
