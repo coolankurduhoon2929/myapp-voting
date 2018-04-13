@@ -46,7 +46,7 @@ $('#bs-example-navbar-collapse-2 ul li').click(function(){
   $('#bs-example-navbar-collapse-2 ul li.active').removeClass('active');
   $(this).addClass('active');
   $('#main-container').html('');
-  $('#main-container').append("<img src='/photos/ajax-loader.gif' id='ajax-loader'></img>");
+  $('#main-container').append("<img src='/photos/eclipseLoader.gif' id='ajax-loader'></img>");
   var categ=$(this).text();
   google.charts.setOnLoadCallback(function(){
 

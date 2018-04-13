@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
+    <link rel="shortcut icon" href="/photos/download1.png">
+    <title>Home|<%=user.username%></title>
+    <script>
+    window.addEventListener( "pageshow", function ( event ) {
+    var historyTraversal = event.persisted || ( typeof window.performance != "undefined" && window.performance.navigation.type === 2 );
+    if ( historyTraversal ) {
+      // Handle page restore.
+      window.location.reload(true);
+    }
+    });
+    </script>
+
+    <style>
+      body{
+        background: #D3D3D3;
+        color:crimson;
+      }
+      #details{
+        font-size: 30px;
+        text-align: center;
+        letter-spacing: 0.6rem;
+        padding-top: 30px;
+      }
+      #logoutlink:hover{
+        color:red;
+      }
+      .row{
+        margin-top: 20px;
+      }
+      .container{
+        width: 90%;
+      }
+      .img-rounded{
+        width: 200px;
+      }
+      #submitkabutton:hover{
+        opacity:.6;
+      }
+      #main-container{
+        padding-top: 25px;
+        width: 60%;
+        text-align: center;
+        margin: auto;
+      }
+      @media only screen and (max-width: 768px) {
+        #main-container{
+          width: 90%;
+          text-align: center;
+          margin: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+
+          <a class="navbar-brand" href="#">
+            <i class="fas fa-hand-peace" style="color:#F61C40;"></i> Online Voting
+          </a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li ><a href="/me">Home</a></li>
+          <li><a href="/profile">Profile</a></li>
+          <li ><a href="/pollresults">Poll Results</a></li>
+          <li ><a href="/userpastactivity">Past Activity</a></li>
+          <li><a href="/explore">Find People</a></li>
+          <li class="active"><a href="#">Make poll</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="/setting">Settings</i></a></li>
+          <li><a href="/logout" id="logoutlink">LogOut</i></a></li>
+        </ul>
+      </div>
+      </div>
+
+    </nav>
+    <div class="row" id="main-container">
+
+      <form action="/submituserquestion" method="post" id="form1">
+        <div class="row">
+          <h1 style="text-align:center;color:indigo ;text-decoration-line:underline;text-decoration-style: wavy;">Put a Question</h1>
+        </div>
+        <div class="row" style="margin-top:40px;">
+          <div class="col-xs-12 form-group"><label for="111">Question:</label><input id="111" type="text" name="question" class="form-control" placeholder="Question" required autofocus></div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12 form-group">
+          <label for="112">No. of Options:</label>
+          <select id="112" class="form-control" name="noofoptions" placeholder="No. of Questions" required>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+        </select>
+      </div>
+    </div>
+    <div class="row" id="optionslist">
+        <div class="col-xs-12"><input type="text" name="option1" class="form-control" placeholder="option1" required></div>
+          <div class="col-xs-12"><input type="text" name="option2" class="form-control" placeholder="option2" required></div>
+    </div>
+        <div class="row">
+          <div class="col-xs-12 form-group">
+            <label for="113">Category:</label>
+            <select id="113" class="form-control" name="category" placeholder="Category" required>
+            <option>Education</option>
+            <option>Entertainment</option>
+            <option>Policy</option>
+            <option>Politics</option>
+            <option>Sports</option>
+            <option>Other</option>
+        </select>
+      </div>
+        </div>
+        <!--
+        <div class="row">
+          <div class="col-xs-12 form-group">
+            <label for="114">Question End Date:</label>
+            <input id="114" type="datetime-local" name="endDate" class="form-control" placeholder="EndDate" required></div>
+        </div>
+      -->
+      <div class="row">
+          <div class="col-xs-12"><button id="submitkabutton" class="btn btn-lg btn-primary btn-block" type="submit" style="margin-top:20px;border-radius:100px;border-color:crimson;background:floralwhite;color:crimson;width:50%;margin:auto;">Submit</button></div>
+      </div>
+      </form>
+    </div>
+
+
+
+
+    <!-- jQuery CDN -->
+     <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+     <!-- Bootstrap Js CDN -->
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+     <script type="text/javascript">
+         $(document).ready(function () {
+             $('#sidebarCollapse').on('click', function () {
+                 $('#sidebar').toggleClass('active');
+             });
+         });
+
+         //myscript
+         $('form select').first().change(()=>{
+           var total=parseInt($('form select').first().val());
+            $('#optionslist').html('');
+           for(var i=1;i<=total;i++){
+             $('#optionslist').append("<div class='col-xs-12'><input type='text' name='option"+i+"' class='form-control' placeholder='option"+i+"' required></div>");
+           }
+         });
+     </script>
+
+   </div>
+  </body>
+</html>

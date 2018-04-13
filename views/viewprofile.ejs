@@ -1,224 +1,273 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-<link rel="shortcut icon" href="/photos/download1.png">
-<title>Profile |<%=user.username%></title>
-<script>
-window.addEventListener( "pageshow", function ( event ) {
-var historyTraversal = event.persisted || ( typeof window.performance != "undefined" && window.performance.navigation.type === 2 );
-if ( historyTraversal ) {
-  // Handle page restore.
-  window.location.reload(true);
-}
-});
-</script>
-<style>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
+    <link rel="shortcut icon" href="/photos/download1.png">
+    <script
+  src="//code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
 
-/* ==========================================================================
-   Author's custom styles
-   ========================================================================== */
-
-body
-{
-    font-family: 'Open Sans', sans-serif;
-    background: #D3D3D3;
-}
+    <title>Home|<%=user.username%></title>
+    <script>
+    window.addEventListener( "pageshow", function ( event ) {
+    var historyTraversal = event.persisted || ( typeof window.performance != "undefined" && window.performance.navigation.type === 2 );
+    if ( historyTraversal ) {
+      // Handle page restore.
+      window.location.reload(true);
+    }
+    });
+    </script>
 
 
-.fb-profile img.fb-image-lg{
-    z-index: 0;
-    width: 100%;
-    margin-bottom: 10px;
-    height: 300px;
-}
-
-.fb-image-profile
-{
-    margin: -90px 10px 0px 50px;
-    z-index: 9;
-    width: 20%;
-}
-
-@media (max-width:768px)
-{
-  .fb-profile img.fb-image-lg{
-      height: 150px;
-  }
-
-.fb-profile-text>h1{
-    font-weight: 700;
-    font-size:16px;
-}
-
-.fb-image-profile
-{
-    margin: -45px 10px 0px 25px;
-    z-index: 9;
-    width: 20%;
-}
-
-.modal-content{
-  width: 80%;
-}
-
-}
-
-/*end*/
+    <style>
+      body{
+        background: #D3D3D3;
+        color:purple;
+            }
+      #details{
+        font-size: 30px;
+        text-align: center;
+        letter-spacing: 0.6rem;
+        padding-top: 30px;
+      }
+      #logoutlink:hover{
+        color:red;
+      }
+      .row{
+        margin-top: 90px;
+      }
+      .container{
+        width: 90%;
+      }
+      .img-rounded{
+        width: 200px;
+      }
+      #main-container{
+        padding-top: 35px;
+      }
+      .panel-default{
+        margin-bottom: 20px;
+        display: none;
+      }
+      input[type=checkbox], input[type=radio]{
+        cursor: pointer;
+      }
+      button:hover{
+        opacity:.8;
+      }
 
 
-/* The Modal (background) */
-.modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    padding-top: 100px; /* Location of the box */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
+      /* ==========================================================================
+         Author's custom styles
+         ========================================================================== */
 
-/* Modal Content */
-.modal-content {
-    position: relative;
-    background-color: #fefefe;
-    margin: auto;
-    padding: 0;
-    border: 1px solid #888;
-    width: 60%;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
-    -webkit-animation-name: animatetop;
-    -webkit-animation-duration: 0.4s;
-    animation-name: animatetop;
-    animation-duration: 0.4s
-}
-
-/* Add Animation */
-@-webkit-keyframes animatetop {
-    from {top:-300px; opacity:0}
-    to {top:0; opacity:1}
-}
-
-@keyframes animatetop {
-    from {top:-300px; opacity:0}
-    to {top:0; opacity:1}
-}
-
-/* The Close Button */
-.close {
-    color: white;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.modal-header {
-    padding: 2px 16px;
-    background-color: #5cb85c;
-    color: white;
-}
-
-.modal-body {padding: 2px 16px;}
-
-.modal-footer {
-    padding: 2px 16px;
-    background-color: #5cb85c;
-    color: white;
-}
+      body
+      {
+          font-family: 'Open Sans', sans-serif;
+          background: #D3D3D3;
+      }
 
 
-</style>
-</head>
+      .fb-profile img.fb-image-lg{
+          z-index: 0;
+          width: 100%;
+          margin-bottom: 10px;
+          height: 300px;
+      }
 
-<body>
-<div class="container">
-  <nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
+      .fb-image-profile
+      {
+          margin: -90px 10px 0px 50px;
+          z-index: 9;
+          width: 20%;
+      }
 
-        <a class="navbar-brand" href="#">
-          <i class="fas fa-hand-peace" style="color:#F61C40;"></i> Online Voting
-        </a>
-      </div>
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li><a href="/me">Home</a></li>
-        <li ><a href="/profile">Profile</a></li>
-        <li ><a href="/pollresults">Poll Results</a></li>
-        <li ><a href="/userpastactivity">Past Activity</a></li>
-        <li class="active"><a href="">Find People</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-          <li><a href="/setting">Settings</i></a></li>
-        <li><a href="/logout" id="logoutlink">LogOut</i></a></li>
-      </ul>
-    </div>
-    </div>
+      @media (max-width:768px)
+      {
+        .fb-profile img.fb-image-lg{
+            height: 150px;
+        }
 
-  </nav>
-  <div class="row">
-    <div class="fb-profile">
-        <img align="left" class="fb-image-lg" src="https://png.pngtree.com/thumb_back/fw800/back_pic/03/51/76/7457922892b55cf.jpg" alt="Profile image example"/>
-        <img align="left" id="profile_pic" class="fb-image-profile thumbnail" src=<%= user.imgsrc %> alt="Profile image example"/>
-        <div class="fb-profile-text">
-            <h1 style="color:#ff4500;"><%= user.firstname+" "+user.lastname %> <span style="float:right"><button type="button" id="followbtn" class="btn btn-primary"><span id="12za"><%= user.checkfollow %></span></button></span></h1>
+      .fb-profile-text>h1{
+          font-weight: 700;
+          font-size:16px;
+      }
 
-              <p style="color:#cd853f;">
-                  About : <%= user.about %>
-              </p>
+      .fb-image-profile
+      {
+          margin: -45px 10px 0px 25px;
+          z-index: 9;
+          width: 20%;
+      }
+
+      .modal-content{
+        width: 80%;
+      }
+
+      }
+
+      /*end*/
+
+      /* The Modal (background) */
+      .modal {
+          display: none; /* Hidden by default */
+          position: fixed; /* Stay in place */
+          z-index: 1; /* Sit on top */
+          padding-top: 100px; /* Location of the box */
+          left: 0;
+          top: 0;
+          width: 100%; /* Full width */
+          height: 100%; /* Full height */
+          overflow: auto; /* Enable scroll if needed */
+          background-color: rgb(0,0,0); /* Fallback color */
+          background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+      }
+
+      /* Modal Content */
+      .modal-content {
+          position: relative;
+          background-color: #fefefe;
+          margin: auto;
+          padding: 0;
+          border: 1px solid #888;
+          width: 60%;
+          box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+          -webkit-animation-name: animatetop;
+          -webkit-animation-duration: 0.4s;
+          animation-name: animatetop;
+          animation-duration: 0.4s
+      }
+
+      /* Add Animation */
+      @-webkit-keyframes animatetop {
+          from {top:-300px; opacity:0}
+          to {top:0; opacity:1}
+      }
+
+      @keyframes animatetop {
+          from {top:-300px; opacity:0}
+          to {top:0; opacity:1}
+      }
+
+      /* The Close Button */
+      .close {
+          color: white;
+          float: right;
+          font-size: 28px;
+          font-weight: bold;
+      }
+
+      .close:hover,
+      .close:focus {
+          color: #000;
+          text-decoration: none;
+          cursor: pointer;
+      }
+
+      .modal-header {
+          padding: 2px 16px;
+          background-color: #5cb85c;
+          color: white;
+      }
+
+      .modal-body {padding: 2px 16px;}
+
+      .modal-footer {
+          padding: 2px 16px;
+          background-color: #5cb85c;
+          color: white;
+      }
+
+
+    </style>
+  </head>
+  <body>
+    <div class="container">
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+
+          <a class="navbar-brand" href="#">
+            <i class="fas fa-hand-peace" style="color:#F61C40;"></i> Online Voting
+          </a>
         </div>
-    </div>
-</div> <!-- /container -->
-<div class="container" style="margin-top:20px;">
-  <div class="row">
-    <div class="col-lg-3" style="margin-bottom:20px;">
-        <ul class="nav nav-pills nav-stacked" style="margin-top:15px;">
-          <li  style="margin-bottom:20px;">
-            <a href="#" style="color:#ff8c00;background:#f5f5f5;" id="myBtn">
-              <span class="badge pull-right"><%= user.followers.length %></span>
-              Followers
-            </a>
-          </li>
-          <li>
-            <a href="#" style="color:#ff8c00;background:#f5f5f5;" id="myBtn2">
-              <span class="badge pull-right"><%= user.following.length %></span>
-              Following
-            </a>
-          </li>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li><a href="/me">Home</a></li>
+          <li><a href="/profile">Profile</a></li>
+          <li><a href="/pollresults">Poll Results</a></li>
+          <li><a href="/userpastactivity">Past Activity</a></li>
+          <li class="active"><a href="/explore">Find People</a></li>
+          <li><a href="/putupquestion">Make Poll</a></li>
         </ul>
-    </div>
-    <div class="col-lg-9">
-        <ul class="list-group">
-          <li class="list-group-item" style="color:#dc143c;margin-bottom:10px">Username : <span id="username1"><%= user.username %></span></li>
-          <li class="list-group-item" style="color:#dc143c;margin-bottom:10px">Gender : <%= user.gender %></li>
-          <li class="list-group-item" style="color:#dc143c;margin-bottom:10px">Age : <%= user.age %></li>
-          <li class="list-group-item" style="color:#dc143c;margin-bottom:10px">occupation : <%= user.occupation %></li>
-          <li class="list-group-item" style="color:#dc143c;margin-bottom:10px">City : <%=user.city%></li>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="/setting">Settings</i></a></li>
+          <li><a href="/logout" id="logoutlink">LogOut</i></a></li>
         </ul>
-    </div>
+      </div>
+      </div>
+
+    </nav>
+
+    <div id="main-container">
+      <div class="fb-profile">
+        <!--  https://png.pngtree.com/thumb_back/fw800/back_pic/03/51/76/7457922892b55cf.jpg  -->
+          <img align="left" class="fb-image-lg" src="/photos/123.jpg" alt="Profile image example"/>
+          <img align="left" id="profile_pic" class="fb-image-profile thumbnail" src=<%= user.imgsrc %> alt="Profile image example"/>
+          <div class="fb-profile-text">
+              <h1 style="color:#ff4500;"><%= user.firstname+" "+user.lastname %> <span style="float:right"><button type="button" id="followbtn" class="btn btn-primary"><span id="12za"><%= user.checkfollow %></span></button></span></h1>
+
+                <p style="color:#cd853f;">
+                    About : <%= user.about %>
+                </p>
+          </div>
+      </div>
+  </div> <!-- /container -->
+      <div class="row">
+        <div class="col-lg-3" style="margin-bottom:20px;">
+            <ul class="nav nav-pills nav-stacked" style="margin-top:15px;">
+              <li  style="margin-bottom:20px;">
+                <a href="#" style="color:#ff8c00;background:#f5f5f5;" id="myBtn">
+                  <span class="badge pull-right"><%= user.followers.length %></span>
+                  Followers
+                </a>
+              </li>
+              <li>
+                <a href="#" style="color:#ff8c00;background:#f5f5f5;" id="myBtn2">
+                  <span class="badge pull-right"><%= user.following.length %></span>
+                  Following
+                </a>
+              </li>
+            </ul>
+        </div>
+        <div class="col-lg-9">
+            <ul class="list-group">
+              <li class="list-group-item" style="color:#dc143c;margin-bottom:10px">Username : <span id="username1"><%= user.username %></span></li>
+              <li class="list-group-item" style="color:#dc143c;margin-bottom:10px">Gender : <%= user.gender %></li>
+              <li class="list-group-item" style="color:#dc143c;margin-bottom:10px">Age : <%= user.age %></li>
+              <li class="list-group-item" style="color:#dc143c;margin-bottom:10px">occupation : <%= user.occupation %></li>
+              <li class="list-group-item" style="color:#dc143c;margin-bottom:10px">City : <%=user.city%></li>
+            </ul>
+        </div>
+      </div>
+
+  </div>
 </div>
-</div>
+
+
 <!-- modal code -->
 <!-- The Modal -->
 <div id="myModal" class="modal">
@@ -280,6 +329,6 @@ body
 </div>
 
 
-<script src="/viewprofile.js"></script>
-</body>
+  <script type="text/javascript" src="/viewprofile.js"></script>
+  </body>
 </html>

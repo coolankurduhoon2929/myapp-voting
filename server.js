@@ -512,7 +512,8 @@ app.post('/submitquestion',(req,res)=>{
     options:options,
     startDate:new Date(),
     endDate:new Date(req.body.endDate),
-    category:req.body.category
+    category:req.body.category,
+    author:"thisisadmin15081998"
   });
   q.save().then((doc)=>{
     res.redirect('/myadmin');
@@ -732,6 +733,64 @@ app.post('/updatefollowinglist',authenticate,(req,res)=>{
   }).catch((err)=>{
     console.log(err);
   });
+});
+
+app.get('/putupquestion',authenticate,(req,res)=>{
+  res.render('putupquestion',{user:req.user});
+});
+app.post('/submituserquestion',authenticate,(req,res)=>{
+  //console.log(req.body);
+  var options=[];
+  var x;
+  x=req.body.option1
+  if(x){
+    options.push({option:x,no_of_votes:0});
+  }
+  x=req.body.option2
+  if(x){
+      options.push({option:x,no_of_votes:0});
+  }
+  x=req.body.option3
+  if(x){
+      options.push({option:x,no_of_votes:0});
+  }
+  x=req.body.option4
+  if(x){
+      options.push({option:x,no_of_votes:0});
+  }
+  x=req.body.option5
+  if(x){
+      options.push({option:x,no_of_votes:0});
+  }
+  x=req.body.option6
+  if(x){
+      options.push({option:x,no_of_votes:0});
+  }
+  x=req.body.option7
+  if(x){
+      options.push({option:x,no_of_votes:0});
+  }
+  x=req.body.option8
+  if(x){
+      options.push({option:x,no_of_votes:0});
+  }
+  //console.log(options);
+  var q=new Question({
+    question:req.body.question,
+    options:options,
+    startDate:new Date(),
+    //endDate:new Date(req.body.endDate),
+    category:req.body.category,
+    author:req.user.username
+  });
+  q.save().then((doc)=>{
+    res.render('onputupquestion',{user:req.user});
+    //console.log(doc);
+  }).catch((err)=>{
+    res.redirect('back');
+    console.log('Some Error',err);
+  });
+
 });
 
 app.all('*', function(req, res) {

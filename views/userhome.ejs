@@ -56,6 +56,12 @@
         margin-bottom: 20px;
         display: none;
       }
+      input[type=checkbox], input[type=radio]{
+        cursor: pointer;
+      }
+      button:hover{
+        opacity:.8;
+      }
     </style>
   </head>
   <body>
@@ -81,6 +87,7 @@
           <li ><a href="/pollresults">Poll Results</a></li>
           <li ><a href="/userpastactivity">Past Activity</a></li>
           <li><a href="/explore">Find People</a></li>
+          <li><a href="/putupquestion">Make Poll</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li><a href="/setting">Settings</i></a></li>
@@ -94,12 +101,22 @@
     <div id="main-container">
   <%  for(var i=questions.length-1;i>=0;i--){ %>
         <div class="panel panel-default" id=<%=questions[i]._id%>>
-          <div class="panel-body" ><%= questions[i].question %></div>
+          <div class="panel-body" >
+            <%= questions[i].question %>
+            <span style="float:right;color:black;">
+              <% if(questions[i].author==="thisisadmin15081998"){ %>
+              <%= "Online Voting" %>
+              <% }else{ %>
+              @<%= questions[i].author %>
+              <% } %>
+              <span style="color:red;">on</span> <%= questions[i].startDate %>
+            <span>
+          </div>
           <div class="panel-footer">
             <% for(var j=0;j<questions[i].options.length;j++){ %>
               <input type="radio" name="optionSelected"> <%= questions[i].options[j].option %></input><br>
             <% } %>
-            <button type="button" class="btn btn-success" style="margin-top:10px;">Vote</button>
+            <button type="button" class="btn btn-success" style="margin-top:10px;background-color:lightseagreen;border-color:lightseagreen;">Vote</button>
         </div>
         </div>
       <%  } %>
