@@ -20,9 +20,10 @@
     background-position: center;
     color: purple;
     font-family: 'Lato', sans-serif;
-    background: #FF5F6D;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to right, #FFC371, #FF5F6D);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to right, #FFC371, #FF5F6D); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background-color: whitesmoke;
+  //  background: #FF5F6D;  /* fallback for old browsers */
+//background: -webkit-linear-gradient(to right, #FFC371, #FF5F6D);  /* Chrome 10-25, Safari 5.1-6 */
+//background: linear-gradient(to right, #FFC371, #FF5F6D); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
   }
   h1{
@@ -77,8 +78,8 @@ background: linear-gradient(to right, #FFC371, #FF5F6D); /* W3C, IE 10+/ Edge, F
     </div>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <ul class="nav navbar-nav">
-      <li class="active"><a href="#">Home</a></li>
-      <li><a href="#">About</a></li>
+      <li class="active" id="t1"><a href="#">Home</a></li>
+      <li id="t2"><a href="#about_section">About</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="/signup">Signup <i class="fas fa-user-plus"></i></a></li>
@@ -89,7 +90,7 @@ background: linear-gradient(to right, #FFC371, #FF5F6D); /* W3C, IE 10+/ Edge, F
   </nav>
 
   <div class="container">
-    <div class="row">
+    <div class="row" style="height:100vh;">
       <div class="col-lg-12">
         <div id="content">
           <h1>Online Voting</h1>
@@ -101,6 +102,37 @@ background: linear-gradient(to right, #FFC371, #FF5F6D); /* W3C, IE 10+/ Edge, F
       </div>
     </div>
   </div>
+  <div class="container-fluid" id="about_section" style="border-top:1px solid turquoise;">
+    <div class="row" style="background:white;padding-top:50px;padding-bottom:50px;">
+      <p style="text-align:center;font-size:30px;color:tomato;">
+        This is a online voting app.As you know today's world is democratic.<br>Before taking any decision a lot of people are taken in confidence.
+        <br>This web app provides a simple interface to the users to ask their questions.<br>They can check the results of the polls.<br>
+        Sign up to start using this app.<br>
+        This web app will help you get feedbacks from people you know.<br>
+        Also,there will general polls voted by every user of this site.
+      </p>
+    </div>
+  </div>
+  <div class="container-fluid" id="footer" style="border-top:1px solid turquoise;">
+    <div class="row" style="background:whitesmoke;">
+      <p style="text-align:right;font-size:20px;color:black;padding-right:40px;">
+        Copyright @vinay 2018<br>
+        All rights reserved<br>
+        Contact:31542365<br>
+        E-mail:votingapp@gmail.com
+      </p>
+    </div>
+  </div>
+  <script>
+    $('#t1').on('click',function(){
+      $('#t1').addClass("active");
+      $('#t2').removeClass("active");
+    });
+    $('#t2').on('click',function(){
+      $('#t2').addClass("active");
+      $('#t1').removeClass("active");
+    });
+  </script>
 
 </body>
 </html>
