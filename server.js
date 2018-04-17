@@ -195,19 +195,31 @@ app.post('/me',(req,res)=>{
 
 //userhome
 app.get('/me',authenticate,(req,res)=>{
-  Question.find({usersID:{$nin:[req.user._id]}}).then((doc)=>{
-    //console.log(doc);
-    res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-    res.setHeader("Pragma", "no-cache");
-    res.setHeader("Expires", "0");
-    res.render('userhome',{questions:doc,username:req.user.username});
-  }).catch((error)=>{
-    console.log(error);
-    res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-    res.setHeader("Pragma", "no-cache");
-    res.setHeader("Expires", "0");
-    res.send('userhome');
-  });
+  //var arr=req.user.following.push("");
+  User.find({_id:{$in:req.user.following}},"username").then((doc11)=>{
+    var doc12=[];
+    for(var i=0;i<doc11.length;i++){
+      doc12.push(doc11[i].username);
+    }
+    doc12.push("thisisadmin15081998");
+    doc12.push(req.user.username);
+
+    Question.find({usersID:{$nin:[req.user._id]},author:{$in:doc12}}).then((doc)=>{
+      //console.log(doc);
+      res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+      res.setHeader("Pragma", "no-cache");
+      res.setHeader("Expires", "0");
+      res.render('userhome',{questions:doc,username:req.user.username});
+    }).catch((error)=>{
+      console.log(error);
+      res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+      res.setHeader("Pragma", "no-cache");
+      res.setHeader("Expires", "0");
+      res.send('userhome');
+    });
+  }).catch((err)=>{
+    console.log(err);
+});
 });
 //userprofile
 app.get('/profile',authenticate,(req,res)=>{
@@ -364,17 +376,17 @@ app.get('/setting',authenticate,(req,res)=>{
 
 app.post('/onsettingchange',authenticate,(req,res)=>{
   //checking availability of imgsrc...
-  dns.resolve4(req.body.imgsrc,(err,addresses)=>{
-    if(err.code==="ENOTFOUND"){
-      var imsz;
-      if(req.body.gender==="Female"){
-          imsz="https://cdn.pixabay.com/photo/2014/03/25/16/54/user-297566_960_720.png";
-      }
-      else{
-        imsz="http://www.clker.com/cliparts/c/4/0/e/1197115544208915882acspike_male_user_icon.svg.med.png";
-      }
-      req.body.imgsrc=imsz;
-    };
+  // dns.resolve4(req.body.imgsrc,(err,addresses)=>{
+  //   if(err.code==="ENOTFOUND"){
+  //     var imsz;
+  //     if(req.body.gender==="Female"){
+  //         imsz="https://cdn.pixabay.com/photo/2014/03/25/16/54/user-297566_960_720.png";
+  //     }
+  //     else{
+  //       imsz="http://www.clker.com/cliparts/c/4/0/e/1197115544208915882acspike_male_user_icon.svg.med.png";
+  //     }
+  //     req.body.imgsrc=imsz;
+  //   };
 
   User.findByIdAndUpdate(req.user._id, {$set:{
     firstname:req.body.firstname,
@@ -398,7 +410,7 @@ app.post('/onsettingchange',authenticate,(req,res)=>{
     res.redirect('/setting');
   });
 });
-});
+//});
 
 
 
@@ -672,12 +684,12 @@ app.get('/searchPeople',authenticate,(req,res)=>{
 app.get('/viewprofile/:user_id',authenticate,(req,res)=>{
   //console.log(req.params)
   User.findOne({_id:req.params.user_id}).then((doc)=>{
-    if(doc.imgsrc===undefined){doc.imgsrc="kuch bhi";}
-    dns.resolve4(doc.imgsrc,(err,addresses,family)=>{
-      dns.resolve6(doc.imgsrc,(err1,addresses,family)=>{
-        if(err.code==="ENOTFOUND" && err1.code==="ENOTFOUND"){
-          doc.imgsrc="https://cdn.pixabay.com/photo/2016/08/31/11/54/user-1633249_960_720.png";
-        };
+    //if(doc.imgsrc===undefined){doc.imgsrc="kuch bhi";}
+    //dns.resolve4(doc.imgsrc,(err,addresses,family)=>{
+      //dns.resolve6(doc.imgsrc,(err1,addresses,family)=>{
+        //if(err.code==="ENOTFOUND" && err1.code==="ENOTFOUND"){
+          //doc.imgsrc="https://cdn.pixabay.com/photo/2016/08/31/11/54/user-1633249_960_720.png";
+        //};
 
       //console.log(err);
       //console.log(doc.imgsrc);
@@ -690,7 +702,7 @@ app.get('/viewprofile/:user_id',authenticate,(req,res)=>{
           //console.log(doc.followers);
           doc.checkfollow="Follow";
           for(var i=0;i<req.user.following.length;i++){
-            console.log('done');
+            //console.log('done');
             if(req.params.user_id.trim()===req.user.following[i].toString()){
               doc.checkfollow="Following";
             }
@@ -706,8 +718,7 @@ app.get('/viewprofile/:user_id',authenticate,(req,res)=>{
         res.setHeader("Expires", "0");
         res.status(400).send('Some error is there...');
       });
-    });
-  });
+    //});
   }).catch((err)=>{
     console.log(err);
     res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
