@@ -41,7 +41,7 @@
         color:red;
       }
       .row{
-        margin-top: 90px;
+        margin-top: 15px;
       }
       .container{
         width: 90%;
@@ -222,7 +222,7 @@
 
     </nav>
 
-    <div id="main-container">
+    <div id="main-container" class="row">
       <div class="fb-profile">
         <!--  https://png.pngtree.com/thumb_back/fw800/back_pic/03/51/76/7457922892b55cf.jpg  -->
           <img align="left" class="fb-image-lg" src="/photos/123.jpg" alt="Profile image example"/>
@@ -278,9 +278,9 @@
       <span class="close">&times;</span>
       <h2>Followers</h2>
     </div>
-    <div class="modal-body list-group" style="height:300px;overflow:auto;">
+    <div class="modal-body list-group" style="height:300px;overflow:auto;margin-top:20px;">
           <% for(var i=0;i<user.followers.length;i++){ %>
-            <a href="#" class="list-group-item" id=<%= user.followers[i]._id %> >
+            <a href="#" class="list-group-item ppza" id=<%= user.followers[i]._id %> >
               <div class="row" style="margin-top:0px;text-align:center">
                 <div class="col-lg-1" class="thumbnail">
                     <img src=<%= user.followers[i].imgsrc %> alt="..." class="img-circle" height="30px" width="30px">
@@ -306,9 +306,9 @@
     <span class="close">&times;</span>
     <h2>Following</h2>
   </div>
-  <div class="modal-body list-group" style="height:300px;overflow:auto;">
+  <div class="modal-body list-group" style="height:300px;overflow:auto;margin-top:20px;">
         <% for(var i=0;i<user.following.length;i++){ %>
-          <a href="#" class="list-group-item" id=<%= user.following[i]._id %> >
+          <a href="#" class="list-group-item ppza" id=<%= user.following[i]._id %> >
             <div class="row" style="margin-top:0px;text-align:center">
               <div class="col-lg-1" class="thumbnail">
                   <img src=<%= user.following[i].imgsrc %> alt="..." class="img-circle" height="30px" width="30px">

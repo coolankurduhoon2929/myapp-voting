@@ -206,6 +206,7 @@ app.get('/me',authenticate,(req,res)=>{
 
     Question.find({usersID:{$nin:[req.user._id]},author:{$in:doc12}}).then((doc)=>{
       //console.log(doc);
+      doc.sort(function(a,b){return a.startDate.getTime()-b.startDate.getTime()});
       res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
       res.setHeader("Pragma", "no-cache");
       res.setHeader("Expires", "0");
@@ -233,10 +234,10 @@ app.get('/profile',authenticate,(req,res)=>{
 app.post('/onsignupdata',(req,res)=>{
   var imsz;
   if(req.body.genderProvided==="Female"){
-      imsz="https://cdn.pixabay.com/photo/2014/03/25/16/54/user-297566_960_720.png";
+      imsz="https://scontent.fdel11-1.fna.fbcdn.net/v/t31.0-1/c282.0.960.960/p960x960/1402926_10150004552801901_469209496895221757_o.jpg?_nc_cat=0&oh=c5d4d511fd9e0a95f6341827e4f964b3&oe=5B5AD56A";
   }
   else{
-    imsz="http://www.clker.com/cliparts/c/4/0/e/1197115544208915882acspike_male_user_icon.svg.med.png";
+    imsz="https://scontent.fdel11-1.fna.fbcdn.net/v/t31.0-1/c282.0.960.960/p960x960/10506738_10150004552801856_220367501106153455_o.jpg?_nc_cat=0&oh=56b54d799e7ec853e1410c6a2d271a0e&oe=5B50B912";
   }
   var user=new User({
     firstname:req.body.firstnameProvided,
@@ -327,10 +328,19 @@ app.get('/userpastactivity',authenticate,(req,res)=>{
     //   console.log(Question.findOne({_id:doc.questions[i].qid},(data,err)=>{return data}));
     // }
     //console.log(data);
+    var zzzz=doc.questions;
+    var aaaa=doc.questionasked;
+    for(var i=0;i<aaaa.length;i++){
+      zzzz.push(aaaa[i]);
+    }
+    //console.log(zzzz);
+    zzzz.sort(function(a,b){
+      return a.pollDate.getTime()-b.pollDate.getTime();
+    });
     res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
     res.setHeader("Pragma", "no-cache");
     res.setHeader("Expires", "0");
-    res.render('userpastactivity',{questions:doc.questions,username:req.user.username});
+    res.render('userpastactivity',{questions:zzzz,username:req.user.username});
   }).catch((err)=>{
     console.log(err);
     res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
@@ -350,6 +360,7 @@ app.get('/pollresults',authenticate,(req,res)=>{
 //sending full poll information
 app.get('/getpolldata',authenticate,(req,res)=>{
   Question.find({}).then((doc)=>{
+    //console.log(doc);
     res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
     res.setHeader("Pragma", "no-cache");
     res.setHeader("Expires", "0");
@@ -525,7 +536,8 @@ app.post('/submitquestion',(req,res)=>{
     startDate:new Date(),
     endDate:new Date(req.body.endDate),
     category:req.body.category,
-    author:"thisisadmin15081998"
+    author:"thisisadmin15081998",
+    total_votes:0
   });
   q.save().then((doc)=>{
     res.redirect('/myadmin');
@@ -792,10 +804,22 @@ app.post('/submituserquestion',authenticate,(req,res)=>{
     startDate:new Date(),
     //endDate:new Date(req.body.endDate),
     category:req.body.category,
-    author:req.user.username
+    author:req.user.username,
+    total_votes:0
   });
   q.save().then((doc)=>{
-    res.render('onputupquestion',{user:req.user});
+    console.log(doc);
+    var qasked={question:req.body.question,qid:doc._id,pollDate:doc.startDate};
+    var qaskedlist=req.user.questionasked;
+    qaskedlist.push(qasked);
+    User.findOneAndUpdate({_id:req.user._id},{$set:{questionasked:qaskedlist}}).then((doc11)=>{
+      res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+      res.setHeader("Pragma", "no-cache");
+      res.setHeader("Expires", "0");
+      res.render('onputupquestion',{user:req.user});
+      res.render('userpastactivity',{questions:doc.questions,username:req.user.username});
+    });
+
     //console.log(doc);
   }).catch((err)=>{
     res.redirect('back');

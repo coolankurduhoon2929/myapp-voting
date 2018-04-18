@@ -58,6 +58,12 @@ var User=mongoose.model('User',{
     option_selected:{type:String},
     pollDate:{type:Date}
   }],
+  questionasked:[{
+    question:{type:String},
+    qid:{type:String},
+    pollDate:{type:Date},
+    option_selected:{type:String}
+  }],
   followers:[],
   following:[],
   dateJoined:{type:Date}

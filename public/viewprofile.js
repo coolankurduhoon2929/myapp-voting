@@ -43,3 +43,8 @@ $('#followbtn').on('click',function(){
     });
   }
 });
+
+$('.ppza').on('click',function(){
+  window.location.href = "/viewprofile/"+$(this).attr("id").trim();
+  //$.get('/viewprofile/'+$(this).attr("id"));
+});

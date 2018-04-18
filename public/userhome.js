@@ -13,6 +13,9 @@ $('#main-container button').click(function(){
     //console.log(qid,option_selected);
     $(this).parent().parent().fadeOut(1000,function(){
       $(this).remove();
+      if($('.zzaa').length===0){
+        $("#main-container").append("<p style='text-align:center;color:green;font-size:30px;padding-top:200px'>Congratulations...You have voted all polls...Check Result Section...</p>");
+      }
     });
     $.post('registervote',{
       question_id:qid,

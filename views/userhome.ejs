@@ -100,7 +100,7 @@
 
     <div id="main-container">
   <%  for(var i=questions.length-1;i>=0;i--){ %>
-        <div class="panel panel-default" id=<%=questions[i]._id%>>
+        <div class="panel panel-default zzaa" id=<%=questions[i]._id%>>
           <div class="panel-body" >
             <%= questions[i].question %>
             <span style="float:right;color:black;">
@@ -109,7 +109,13 @@
               <% }else{ %>
               @<%= questions[i].author %>
               <% } %>
-              <span style="color:red;">on</span> <%= questions[i].startDate %>
+              <span style="color:red;">on</span> <%= questions[i].startDate.toDateString() %>
+              <span style="color:red;">&#160;|&#160;</span> <%= questions[i].startDate.getHours()%12 %>:<%= questions[i].startDate.getMinutes() %>
+              <% if(questions[i].startDate.getHours()>11){%>
+                PM
+              <%}else{%>
+                AM
+              <%}%>
             <span>
           </div>
           <div class="panel-footer">

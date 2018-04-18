@@ -23,7 +23,7 @@
     <style>
       body{
         background: #D3D3D3;
-        color:purple;
+        color:tomato;
       }
       #details{
         font-size: 30px;
@@ -85,8 +85,28 @@
     <div id="main-container">
       <% for(var i=questions.length-1;i>=0;i--){ %>
       <div class="panel panel-default">
-          <div class="panel-heading"><%= questions[i].question %></div>
-          <div class="panel-body">You Voted for: <%= questions[i].option_selected %> <span style="float:right;"> <%= questions[i].pollDate.toString() %></span></div>
+          <% if(questions[i].option_selected==="-1"){ %>
+              <div class="panel-heading" style="color:darkviolet;">You asked a question...</div>
+          <% }else{ %>
+            <div class="panel-heading"><%= questions[i].question %></div>
+          <% } %>
+          <div class="panel-body">
+            <% if(questions[i].option_selected==="-1"){ %>
+                <%= questions[i].question %>
+            <% }else{ %>
+                You Voted for:&#160; <span style="color:darkorange;"><%= questions[i].option_selected %></span>
+            <% } %>
+
+            <span style="float:right;">
+            <%= questions[i].pollDate.toDateString() %>
+            <span style="color:black;">&ensp;|&ensp;</span>
+            <%= questions[i].pollDate.getHours()%12 %>:<%= questions[i].pollDate.getMinutes() %>
+           <% if(questions[i].pollDate.getHours()>11){%>
+             PM
+           <%}else{%>
+             AM
+           <%}%>
+          </span></div>
       </div>
       <% } %>
 
