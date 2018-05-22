@@ -98,10 +98,11 @@
             <% } %>
 
             <span style="float:right;">
-            <%= questions[i].pollDate.toDateString() %>
+            <% var zz=questions[i].pollDate; %>
+            <%= zz.toDateString() %>
             <span style="color:black;">&ensp;|&ensp;</span>
-            <%= questions[i].pollDate.getHours()%12 %>:<%= questions[i].pollDate.getMinutes() %>
-           <% if(questions[i].pollDate.getHours()>11){%>
+            <%= zz.getHours()%12 %>:<%= zz.getMinutes() %>
+           <% if(zz.getHours()>11){%>
              PM
            <%}else{%>
              AM
