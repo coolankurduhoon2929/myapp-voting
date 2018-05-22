@@ -1,16 +1,101 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta charset="utf-8">
-    <title>Done</title>
-    <style>
-      body{
-        text-align:center;
-      }
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
+  <link rel="shortcut icon" href="/photos/download1.png">
+  <title>Online Voting | Home</title>
+  <style type="text/css">
+  html{
+    height: 100%;
+  }
+  body{
+    <!-- background: url(https://dz2cdn3.dzone.com/storage/article-thumb/7923454-thumb.jpg);-->
+    background-size:cover;
+    background-position: center;
+    color: purple;
+    font-family: 'Lato', sans-serif;
+    /* background: #FF5F6D;  /* fallback for old browsers */
+/* background: -webkit-linear-gradient(to right, #FFC371, #FF5F6D);  /* Chrome 10-25, Safari 5.1-6 */ */
+/* background: linear-gradient(to right, #FFC371, #FF5F6D); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */ */ */
+background: #00c3ff;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #ffff1c, #00c3ff);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #ffff1c, #00c3ff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+<!-- frer -->
+  }
+  h1{
+    letter-spacing:0.2rem;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+  h3{
+    letter-spacing:0.1rem;
+    text-transform: uppercase;
+  }
+  h4{
+    letter-spacing:0.1rem;
+    text-transform: uppercase;
+  }
+    #content{
+      text-align: center;
+      padding-top: 10%;
+      margin: 0 auto;
+      max-width: 450px;
+      padding-top: 200px;
+      padding-bottom: 40px;
+    }
+
+  .navbar-inverse{
+    background-color: purple;
+  }
+  .active{
+    background: darkslategrey;
+  }
+  .row{
+    margin-top: 10px;
+  }
+  form p{
+    color:red;
+    text-align: left;
+    padding-left: 10px;
+  }
   </style>
-  </head>
-  <body>
-    <p>Registration Successfull...Please Login to continue<a href="/" style="padding-left:10px">Login</a></p>
-  </body>
+</head>
+<body>
+
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+      <a class="navbar-brand" href="#">  <i class="far fa-hand-peace"></i> Online Voting</a>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <ul class="nav navbar-nav">
+      <li ><a href="/">Home</a></li>
+      <li><a href="#">About</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="#" class="active">Signup <i class="fas fa-user-plus"></i></a></li>
+      <li><a href="/signin" >Login <i class="fas fa-user"></i></a></li>
+    </ul>
+  </div>
+  </div>
+  </nav>
+
+  <div id="content">
+    <p>Registration Successfull...Please Login to continue<a href="/signin" style="padding-left:10px">Login</a></p>
+  </div>
+
+</body>
 </html>

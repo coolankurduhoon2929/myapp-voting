@@ -230,6 +230,25 @@ app.get('/profile',authenticate,(req,res)=>{
   res.render('userprofile',{user:req.user});
 });
 
+//checking existance of a user
+app.get('/checkvalidusername',(req,res)=>{
+  res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+  res.setHeader("Pragma", "no-cache");
+  res.setHeader("Expires", "0");
+  var data={valid:1};
+  User.findOne({username:req.query.username}).then((doc)=>{
+    if(doc){
+      data.valid=0;
+    }
+    else{
+      data.valid=1;
+    }
+    res.send(data);
+  }).catch((error)=>{
+
+  });
+});
+
 //After signup request
 app.post('/onsignupdata',(req,res)=>{
   var imsz;
@@ -240,10 +259,10 @@ app.post('/onsignupdata',(req,res)=>{
     imsz="https://scontent.fdel11-1.fna.fbcdn.net/v/t31.0-1/c282.0.960.960/p960x960/10506738_10150004552801856_220367501106153455_o.jpg?_nc_cat=0&oh=56b54d799e7ec853e1410c6a2d271a0e&oe=5B50B912";
   }
   var user=new User({
-    firstname:req.body.firstnameProvided,
-    lastname:req.body.lastnameProvided,
-    username:req.body.usernameProvided,
-    password:req.body.passwordProvided,
+    firstname:req.body.firstnameProvided.trim(),
+    lastname:req.body.lastnameProvided.trim(),
+    username:req.body.usernameProvided.trim(),
+    password:req.body.passwordProvided.trim(),
     age:req.body.ageProvided,
     gender:req.body.genderProvided,
     city:"NotProvided",
@@ -261,11 +280,19 @@ app.post('/onsignupdata',(req,res)=>{
     res.setHeader("Expires", "0");
     res.render('signupsuccessful');
   }).catch((e)=>{
+    console.log(e.errors);
     res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
     res.setHeader("Pragma", "no-cache");
     res.setHeader("Expires", "0");
     res.redirect('back');
   })
+});
+
+app.get("/signupsuccessful",(req,res)=>{
+  res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+  res.setHeader("Pragma", "no-cache");
+  res.setHeader("Expires", "0");
+  res.render('signupsuccessful');
 });
 
 
