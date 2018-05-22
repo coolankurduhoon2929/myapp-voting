@@ -85,13 +85,13 @@
     <div id="main-container">
       <% for(var i=questions.length-1;i>=0;i--){ %>
       <div class="panel panel-default">
-          <% if(questions[i].option_selected==="-1"){ %>
+          <% if(questions[i].option_selected==="1za2za3za0za"){ %>
               <div class="panel-heading" style="color:darkviolet;">You asked a question...</div>
           <% }else{ %>
             <div class="panel-heading"><%= questions[i].question %></div>
           <% } %>
           <div class="panel-body">
-            <% if(questions[i].option_selected==="-1"){ %>
+            <% if(questions[i].option_selected==="1za2za3za0za"){ %>
                 <%= questions[i].question %>
             <% }else{ %>
                 You Voted for:&#160; <span style="color:darkorange;"><%= questions[i].option_selected %></span>

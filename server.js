@@ -358,6 +358,7 @@ app.get('/userpastactivity',authenticate,(req,res)=>{
     var zzzz=doc.questions;
     var aaaa=doc.questionasked;
     for(var i=0;i<aaaa.length;i++){
+      aaaa[i].option_selected="1za2za3za0za";
       zzzz.push(aaaa[i]);
     }
     //console.log(zzzz);
@@ -367,6 +368,7 @@ app.get('/userpastactivity',authenticate,(req,res)=>{
     res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
     res.setHeader("Pragma", "no-cache");
     res.setHeader("Expires", "0");
+    //console.log(zzzz);
     res.render('userpastactivity',{questions:zzzz,username:req.user.username});
   }).catch((err)=>{
     console.log(err);
@@ -386,12 +388,25 @@ app.get('/pollresults',authenticate,(req,res)=>{
 
 //sending full poll information
 app.get('/getpolldata',authenticate,(req,res)=>{
-  Question.find({}).then((doc)=>{
-    //console.log(doc);
-    res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-    res.setHeader("Pragma", "no-cache");
-    res.setHeader("Expires", "0");
-    res.send(doc);
+  //var userz=req.user.following;
+  //userz.push("thisisadmin15081998");
+  User.find({_id:{$in:req.user.following}},"username").then((doc2)=>{
+    doc3=[];
+    for(var i=0;i<doc2.length;i++){
+      doc3.push(doc2[i].username);
+    }
+    doc3.push("thisisadmin15081998");
+    //console.log(doc3);
+    Question.find({author:{$in:doc3}}).then((doc)=>{
+      //console.log(doc);
+      res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+      res.setHeader("Pragma", "no-cache");
+      res.setHeader("Expires", "0");
+      res.send(doc);
+    });
+
+  }).catch((err)=>{
+    console.log(err);
   });
 });
 app.get('/getpolldata1',adminAuthenticate,(req,res)=>{
@@ -836,7 +851,7 @@ app.post('/submituserquestion',authenticate,(req,res)=>{
   });
   q.save().then((doc)=>{
     console.log(doc);
-    var qasked={question:req.body.question,qid:doc._id,pollDate:doc.startDate};
+    var qasked={question:req.body.question,qid:doc._id,pollDate:doc.startDate,option_selected:"1za2za3za0za"};
     var qaskedlist=req.user.questionasked;
     qaskedlist.push(qasked);
     User.findOneAndUpdate({_id:req.user._id},{$set:{questionasked:qaskedlist}}).then((doc11)=>{
