@@ -9,6 +9,10 @@
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
     <link rel="shortcut icon" href="/photos/download1.png">
+    <script
+  src="//code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
     <title>Home|<%=username%></title>
     <script>
     window.addEventListener( "pageshow", function ( event ) {
@@ -45,6 +49,9 @@
       }
       #main-container{
         padding-top: 100px;
+      }
+      .panel-default{
+        display:none;
       }
     </style>
   </head>
@@ -114,5 +121,6 @@
     </div>
 
   </div>
+  <script type="text/javascript" src="/userpastactivity.js"></script>
   </body>
 </html>
